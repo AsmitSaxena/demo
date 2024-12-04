@@ -1,0 +1,128 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e6f0ff; /* Light blue background */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Navigation Bar */
+nav {
+    width: 100%;
+    background-color: #003399; /* Deep blue */
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Switches Container */
+.switches-container {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.switches-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #003399;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.switches-container button:hover {
+    background-color: #0052cc;
+}
+
+/* Main Section */
+.main-section {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid #003399;
+}
+
+.main-section h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #003399;
+}
+
+.main-section h3 {
+    color: #0052cc;
+    margin-bottom: 10px;
+}
+
+.main-section p {
+    margin-bottom: 10px;
+}
+
+.main-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.main-section li {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-button {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    background-color: #0052cc;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.view-button:hover {
+    background-color: #003399;
+}
+
+/* Button for Uploading Documents */
+.upload-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    background-color: #0052cc;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.upload-button:hover {
+    background-color: #003399;
+}
+
+/* File Input Styling */
+input[type="file"] {
+    display: block;
+    margin-bottom: 10px;
+}

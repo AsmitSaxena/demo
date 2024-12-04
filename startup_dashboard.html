@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP - Startup Dashboard</title>
+    <link rel="stylesheet" href="startup_dashboard.css">
+</head>
+<body>
+    <nav>
+        <h1>ERP - Startup Dashboard</h1>
+    </nav>
+    <div class="switches-container">
+        <button id="profileSwitch">Profile & Documents</button>
+        <button id="growthSwitch">Growth</button>
+    </div>
+    <div class="main-section" id="mainSection">
+        <!-- Dynamic content will be rendered here -->
+    </div>
+
+    <script>
+        const mainSection = document.getElementById("mainSection");
+
+        // Sample data (Replace this with actual dynamic data from the server)
+        const startup = {
+            owner: "John Doe",
+            organization: "Tech Innovators",
+            phone: "123-456-7890",
+            email: "john.doe@example.com",
+            documents: [
+                { name: "Business_Plan.pdf", link: "#" },
+                { name: "Legal_Agreement.pdf", link: "#" }
+            ],
+        };
+
+        function renderProfileAndDocuments() {
+            mainSection.innerHTML = `
+                <h2>Profile & Documents</h2>
+                <div>
+                    <h3>Profile Details</h3>
+                    <p><strong>Owner:</strong> ${startup.owner}</p>
+                    <p><strong>Organization:</strong> ${startup.organization}</p>
+                    <p><strong>Phone:</strong> ${startup.phone}</p>
+                    <p><strong>Email:</strong> ${startup.email}</p>
+                </div>
+                <div>
+                    <h3>Legal Documents</h3>
+                    <ul id="documentsList">
+                        ${startup.documents
+                            .map(
+                                (doc) => `
+                                <li>
+                                    ${doc.name}
+                                    <a href="${doc.link}" target="_blank" class="view-button">View</a>
+                                </li>`
+                            )
+                            .join("")}
+                    </ul>
+                    <button class="upload-button" onclick="renderUploadForm()">Upload Document</button>
+                </div>
+            `;
+        }
+
+        function renderUploadForm() {
+            mainSection.innerHTML = `
+                <h2>Upload Document</h2>
+                <form id="uploadForm">
+                    <input type="file" id="documentFile" required>
+                    <button type="submit" class="upload-button">Upload</button>
+                </form>
+                <button onclick="renderProfileAndDocuments()">Back</button>
+            `;
+
+            document.getElementById("uploadForm").addEventListener("submit", (event) => {
+                event.preventDefault();
+                const fileInput = document.getElementById("documentFile");
+                const fileName = fileInput.files[0]?.name;
+
+                if (fileName) {
+                    startup.documents.push({ name: fileName, link: "#" });
+                    alert(`Document "${fileName}" uploaded successfully!`);
+                    renderProfileAndDocuments();
+                } else {
+                    alert("Please select a file to upload.");
+                }
+            });
+        }
+
+        function renderGrowth() {
+            mainSection.innerHTML = `
+                <h2>Growth</h2>
+                <p>This section is under construction. Stay tuned for updates.</p>
+            `;
+        }
+
+        document.getElementById("profileSwitch").addEventListener("click", renderProfileAndDocuments);
+        document.getElementById("growthSwitch").addEventListener("click", renderGrowth);
+
+        // Initial view
+        renderProfileAndDocuments();
+    </script>
+</body>
+</html>

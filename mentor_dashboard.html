@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP - Mentor Dashboard</title>
+    <link rel="stylesheet" href="mentor_dashboard.css">
+</head>
+<body>
+    <nav>
+        <h1>ERP - Mentor Dashboard</h1>
+    </nav>
+    <div class="switches-container">
+        <button id="availableSwitch">Available</button>
+        <button id="acceptedSwitch">Accepted</button>
+        <button id="completedSwitch">Completed</button>
+    </div>
+    <div class="main-section" id="mainSection">
+        <!-- Dynamic content will be rendered here -->
+    </div>
+
+    <script>
+        const mainSection = document.getElementById("mainSection");
+
+        // Sample data for startups
+        const startups = [
+            { id: 1, name: "Startup A", owner: "Owner A", contact: "ownerA@example.com" },
+            { id: 2, name: "Startup B", owner: "Owner B", contact: "ownerB@example.com" },
+        ];
+
+        const acceptedStartups = [];
+        const completedStartups = [];
+
+        function renderAvailableStartups() {
+            mainSection.innerHTML = `
+                <h2>Available Startups</h2>
+                <ul class="startup-list">
+                    ${startups.map(
+                        (startup) => `
+                        <li>
+                            ${startup.name} 
+                            <button onclick="pickStartup(${startup.id})">Pick</button>
+                        </li>
+                    `
+                    ).join("")}
+                </ul>
+            `;
+        }
+
+        function renderAcceptedStartups() {
+            mainSection.innerHTML = `
+                <h2>Accepted Startups</h2>
+                <ul class="startup-list">
+                    ${acceptedStartups.map(
+                        (startup) => `
+                        <li>
+                            ${startup.name} 
+                            <button onclick="viewStartupDetails(${startup.id})">Details</button>
+                        </li>
+                    `
+                    ).join("")}
+                </ul>
+            `;
+        }
+
+        function renderCompletedStartups() {
+            mainSection.innerHTML = `
+                <h2>Completed Startups</h2>
+                <ul class="startup-list">
+                    ${completedStartups.map(
+                        (startup) => `<li>${startup.name}</li>`
+                    ).join("")}
+                </ul>
+            `;
+        }
+
+        function pickStartup(id) {
+            const index = startups.findIndex((s) => s.id === id);
+            if (index !== -1) {
+                acceptedStartups.push(startups[index]);
+                startups.splice(index, 1);
+                renderAvailableStartups();
+            }
+        }
+
+        function viewStartupDetails(id) {
+            const startup = acceptedStartups.find((s) => s.id === id);
+            if (startup) {
+                mainSection.innerHTML = `
+                    <h2>${startup.name}</h2>
+                    <p><strong>Owner:</strong> ${startup.owner}</p><br>
+                    <p><strong>Contact:</strong> ${startup.contact}</p><br>
+                    <button onclick="markAsComplete(${startup.id})">Mark as Complete</button>
+                `;
+            }
+        }
+
+        function markAsComplete(id) {
+            const index = acceptedStartups.findIndex((s) => s.id === id);
+            if (index !== -1) {
+                completedStartups.push(acceptedStartups[index]);
+                acceptedStartups.splice(index, 1);
+                renderAcceptedStartups();
+            }
+        }
+
+        document.getElementById("availableSwitch").addEventListener("click", renderAvailableStartups);
+        document.getElementById("acceptedSwitch").addEventListener("click", renderAcceptedStartups);
+        document.getElementById("completedSwitch").addEventListener("click", renderCompletedStartups);
+
+        // Initial view
+        renderAvailableStartups();
+    </script>
+</body>
+</html>
